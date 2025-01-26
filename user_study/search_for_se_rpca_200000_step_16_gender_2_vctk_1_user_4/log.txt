@@ -1,0 +1,66 @@
+random_index: 11511
+iter 1, pca 1, sel index: 1
+init resemblyzer 0.6828120946884155
+utt 39, iter 1, pca 1, resemblyzer 0.7183150053024292
+iter 1, pca 2, sel index: 2
+utt 39, iter 1, pca 2, resemblyzer 0.7304947972297668
+iter 1, pca 3, sel index: 2
+utt 39, iter 1, pca 3, resemblyzer 0.7491517066955566
+iter 1, pca 4, sel index: 3
+utt 39, iter 1, pca 4, resemblyzer 0.7491517066955566
+iter 1, pca 5, sel index: 3
+utt 39, iter 1, pca 5, resemblyzer 0.7491517066955566
+iter 1, pca 6, sel index: 3
+utt 39, iter 1, pca 6, resemblyzer 0.7491517066955566
+iter 1, pca 7, sel index: 4
+utt 39, iter 1, pca 7, resemblyzer 0.7629727125167847
+iter 1, pca 8, sel index: 3
+utt 39, iter 1, pca 8, resemblyzer 0.7629727125167847
+iter 1, pca 9, sel index: 4
+utt 39, iter 1, pca 9, resemblyzer 0.7568584680557251
+iter 1, pca 10, sel index: 3
+utt 39, iter 1, pca 10, resemblyzer 0.7568584680557251
+iter 1, pca 11, sel index: 3
+utt 39, iter 1, pca 11, resemblyzer 0.7568584680557251
+iter 1, pca 12, sel index: 3
+utt 39, iter 1, pca 12, resemblyzer 0.7568584680557251
+iter 1, pca 13, sel index: 3
+utt 39, iter 1, pca 13, resemblyzer 0.7568584680557251
+iter 1, pca 14, sel index: 1
+utt 39, iter 1, pca 14, resemblyzer 0.7539570331573486
+iter 1, pca 15, sel index: 1
+utt 39, iter 1, pca 15, resemblyzer 0.7404492497444153
+iter 1, pca 16, sel index: 5
+utt 39, iter 1, pca 16, resemblyzer 0.7620755434036255
+iter 2, pca 1, sel index: 4
+utt 39, iter 2, pca 1, resemblyzer 0.754691481590271
+iter 2, pca 2, sel index: 2
+utt 39, iter 2, pca 2, resemblyzer 0.7535263895988464
+iter 2, pca 3, sel index: 3
+utt 39, iter 2, pca 3, resemblyzer 0.7535263895988464
+iter 2, pca 4, sel index: 4
+utt 39, iter 2, pca 4, resemblyzer 0.7622886300086975
+iter 2, pca 5, sel index: 2
+utt 39, iter 2, pca 5, resemblyzer 0.7652164101600647
+iter 2, pca 6, sel index: 1
+utt 39, iter 2, pca 6, resemblyzer 0.7424556016921997
+iter 2, pca 7, sel index: 4
+utt 39, iter 2, pca 7, resemblyzer 0.7567427754402161
+iter 2, pca 8, sel index: 4
+utt 39, iter 2, pca 8, resemblyzer 0.7472351789474487
+iter 2, pca 9, sel index: 3
+utt 39, iter 2, pca 9, resemblyzer 0.7472351789474487
+iter 2, pca 10, sel index: 3
+utt 39, iter 2, pca 10, resemblyzer 0.7472351789474487
+iter 2, pca 11, sel index: 5
+utt 39, iter 2, pca 11, resemblyzer 0.7613329887390137
+iter 2, pca 12, sel index: 3
+utt 39, iter 2, pca 12, resemblyzer 0.7613329887390137
+iter 2, pca 13, sel index: 3
+utt 39, iter 2, pca 13, resemblyzer 0.7613329887390137
+iter 2, pca 14, sel index: 3
+utt 39, iter 2, pca 14, resemblyzer 0.7613329887390137
+iter 2, pca 15, sel index: 3
+utt 39, iter 2, pca 15, resemblyzer 0.7613329887390137
+iter 2, pca 16, sel index: 3
+utt 39, iter 2, pca 16, resemblyzer 0.7613329887390137

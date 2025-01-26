@@ -1,0 +1,2282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+            /* Dark grey color */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .title {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .pagetitle {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .triangle {
+            margin-right: 10px;
+            transition: transform 0.3s;
+        }
+
+        .content {
+            display: none;
+            margin-left: 20px;
+        }
+
+        .open .triangle {
+            transform: rotate(90deg);
+        }
+
+        .open .content {
+            display: block;
+        }
+
+        .paragraph {
+            margin-bottom: 20px;
+            text-align: left;
+            max-width: 1700px;
+        }
+
+        .table-container {
+            display: flex;
+            gap: 100px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #333;
+            /* light grey border */
+        }
+
+        .fixed-width-table th:first-child,
+        .fixed-width-table td:first-child {
+            width: 100px;
+        }
+
+        .fixed-width-table th:not(:first-child),
+        .fixed-width-table td:not(:first-child) {
+            width: 100px;
+        }
+
+        .fixed-width-table th,
+        .fixed-width-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #333;
+            /* light grey border */
+        }
+
+        .fixed-width-table tr:nth-child(2) {
+            background-color: skyblue;
+        }
+
+        .fixed-width-table tr:nth-child(1) {
+            background-color: white;
+        }
+
+        .fixed-width-table tr:nth-child(4) {
+            background-color: skyblue;
+        }
+
+        .fixed-width-table tr:nth-child(3) {
+            background-color: white;
+        }
+
+        
+        .fixed-width-table tr:nth-child(6) {
+            background-color: skyblue;
+        }
+
+        .fixed-width-table tr:nth-child(5) {
+            background-color: white;
+        }
+
+        .fixed-width-table tr:nth-child(8) {
+            background-color: skyblue;
+        }
+
+        .fixed-width-table tr:nth-child(7) {
+            background-color: white;
+        }
+
+
+
+        th:first-child,
+        td:first-child {
+            width: 150px;
+        }
+
+        th:not(:first-child),
+        td:not(:first-child) {
+            width: 150px;
+            /* Fixed width for all columns except the first */
+        }
+
+        tr:nth-child(3) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(4) {
+            background-color: white;
+        }
+
+        tr:nth-child(5) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(6) {
+            background-color: white;
+        }
+
+        tr:nth-child(7) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(8) {
+            background-color: white;
+        }
+
+        tr:nth-child(9) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(10) {
+            background-color: white;
+        }
+
+        tr:nth-child(11) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(12) {
+            background-color: white;
+        }
+
+        tr:nth-child(13) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(14) {
+            background-color: white;
+        }
+
+        tr:nth-child(15) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(16) {
+            background-color: white;
+        }
+
+        tr:nth-child(17) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(18) {
+            background-color: white;
+        }
+
+        tr:nth-child(19) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(20) {
+            background-color: white;
+        }
+
+        
+        tr:nth-child(21) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(22) {
+            background-color: white;
+        }
+
+        
+        tr:nth-child(23) {
+            background-color: skyblue;
+        }
+
+        tr:nth-child(24) {
+            background-color: white;
+        }
+
+        .play-button {
+            display: inline-block;
+            width: 60px;
+            height: 25px;
+            background-color: #f0f0f0;
+            border: 1px solid #555;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .note {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+            let currentAudio = null;
+        function toggleSection(event) {
+            const section = event.currentTarget.parentElement;
+            section.classList.toggle('open');
+        }
+
+        function playAudio(src) {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            currentAudio = new Audio(src);
+            currentAudio.play();
+        }
+    </script>
+</head>
+
+<body>
+    <div class="pagetitle">Demo Page for "Personalized Voice Synthesis through Human-in-the-Loop Coordinate Descent"
+    </div>
+
+    <div class="section">
+        <div class="title" onclick="toggleSection(event)">
+            <span class="triangle">▶</span>
+            <span>Tuning voice characteristics through PCA-based parameter adjustments</span>
+        </div>
+        <div class="content">
+            <p class="paragraph">
+                These audio samples demonstrate the impact of perturbing speaker embeddings along PCA-derived directions. Note that these perturbations affect both speaking style and voice timbre in the VITS (text-to-speech) system. In contrast, for the NANSY-VC (voice conversion) system, the changes primarily influence voice timbre. In addition, each principal direction in NANSY-VC predominantly affects only one or two perceptual voice attributes, such as pitch, vocal tension, brightness, and nasality. This focused impact significantly reduces the cognitive load on the listener during each iteration of the interactive refinement process.
+            <!-- Second set of tables -->
+            <div class="table-container">
+                <div>
+                    <p class="note">Female voice ID: train-clean-100/7511/102419/7511_102419_000028_000012.wav <button class="audio-button"
+                            onclick="playAudio('F_pca/reference.wav')">PLAY</button></p>
+                    <table>
+                        <tr>
+                            <th rowspan="2">Index <br> i </th>
+                            <th colspan="2">VITS</th>
+                            <th colspan="2">NANSY-VC</th>
+                        </tr>
+                        <tr>
+                            <th>z-4.0&sigma;<sub>i</sub>w<sub>i</sub></th>
+                            <th>z+4.0&sigma;<sub>i</sub>w<sub>i</sub></th>
+                            <th>z-4.0&sigma;<sub>i</sub>w<sub>i</sub></th>
+                            <th>z+4.0&sigma;<sub>i</sub>w<sub>i</sub></th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_1/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_1/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_1/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_1/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_2/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_2/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_2/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_2/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_3/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_3/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_3/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_3/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_4/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_4/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_4/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_4/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_5/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_5/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_5/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_5/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_6/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_6/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_6/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_6/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_7/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_7/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_7/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_7/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_8/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_8/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_8/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_8/2.wav')">PLAY</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>9</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_9/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_9/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_9/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_9/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_10/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_10/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_10/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_10/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_11/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_11/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_11/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_11/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_12/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_12/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_12/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_12/2.wav')">PLAY</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>13</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_13/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_13/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_13/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_13/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_14/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_14/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_14/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_14/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_15/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_15/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_15/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_15/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_16/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('F_pca_vits/pca_16/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_16/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('F_pca/pca_16/2.wav')">PLAY</button></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div>
+                    <p class="note">Male voice ID: train-clean-100/1040/133433/1040_133433_000115_000001.wav <button class="audio-button"
+                            onclick="playAudio('M_pca/reference.wav')">PLAY</button></p>
+                    <table>
+                        <tr>
+                            <th rowspan="2">Index<br>i</th>
+                            <th colspan="2">VITS</th>
+                            <th colspan="2">NANSY-VC</th>
+                        </tr>
+                        <tr>
+                            <th>z-4.0&sigma;<sub>i</sub>w<sub>i</sub></th>
+                            <th>z+4.0&sigma;<sub>i</sub>w<sub>i</sub></th>
+                            <th>z-4.0&sigma;<sub>i</sub>w<sub>i</sub></th>
+                            <th>z+4.0&sigma;<sub>i</sub>w<sub>i</sub></th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_1/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_1/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('M_pca/pca_1/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('M_pca/pca_1/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_2/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('ecapa_sv/M_pca/pca_2/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('M_pca/pca_2/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('M_pca/pca_2/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_3/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_3/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('M_pca/pca_3/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('M_pca/pca_3/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_4/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_4/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('M_pca/pca_4/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button"
+                                    onclick="playAudio('M_pca/pca_4/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_5/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_5/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_5/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_5/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_6/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_6/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_6/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_6/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_7/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_7/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_7/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_7/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_8/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_8/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_8/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_8/2.wav')">PLAY</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>9</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_9/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_9/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_9/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_9/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_10/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_10/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_10/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_10/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_11/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_11/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_11/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_11/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_12/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_12/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_12/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_12/2.wav')">PLAY</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>13</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_13/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_13/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_13/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_13/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_14/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_14/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_14/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_14/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_15/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_15/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_15/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_15/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_16/1.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca_vits/pca_16/2.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_16/1.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('M_pca/pca_16/2.wav')">PLAY</button></td>
+                        </tr>
+                            </table>
+                            </div>
+                            </div>
+            </div>
+    </div>
+
+        <div class="section">
+            <div class="title" onclick="toggleSection(event)">
+                <span class="triangle">▶</span>
+                <span>User vs. Simulated search results</span>
+            </div>
+            <div class="content">
+                <p class="paragraph">Explore how users find their target voices. Each example includes users' search results and the simulated results for a specific target voice.
+                </p>
+
+                <p class="paragraph">Sample: LibriTTS-Easy. Original recording: <button class="audio-button"
+                        onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/src.wav')">PLAY</button>. Resythesized speech: <button
+                        class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/resynthesis.wav')">PLAY</button>. Reconstructed with PCA-reduced speaker embedding: <button
+                        class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/reconstruct.wav')">PLAY</button>.
+                </p>
+                <table class="fixed-width-table">
+                    <tr>
+                        <th></th>
+                        <th>Init</th>
+                        <th>Query 1</th>
+                        <th>Query 2</th>
+                        <th>Query 3</th>
+                        <th>Query 4</th>
+                        <th>Query 5</th>
+                        <th>Query 6</th>
+                        <th>Query 7</th>
+                        <th>Query 8</th>
+                        <th>Query 9</th>
+                        <th>Query 10</th>
+                        <th>Final</th>
+                    </tr>
+                    <tr>
+                        <td>Simulated search</td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/init.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/pca_1/sel.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/pca_2/sel.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/pca_3/sel.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/pca_4/sel.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/pca_5/sel.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/pca_6/sel.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/pca_7/sel.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/pca_8/sel.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/pca_9/sel.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/pca_10/sel.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_synth/utt_4/2.wav')">PLAY</button></td>
+                        </tr>
+                        <tr>
+                            <td>User search #1</td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_1/utt_4/init.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_1/utt_4/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_1/utt_4/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_1/utt_4/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_1/utt_4/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_1/utt_4/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_1/utt_4/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_1/utt_4/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_1/utt_4/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_1/utt_4/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_1/utt_4/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_1/utt_4/iter_2/pca_6/sel.wav')">PLAY</button></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>User search #2</td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_2/utt_4/init.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_2/utt_4/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_2/utt_4/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_2/utt_4/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_2/utt_4/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_2/utt_4/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_2/utt_4/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_2/utt_4/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_2/utt_4/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_2/utt_4/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_2/utt_4/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_2/utt_4/iter_2/pca_3/sel.wav')">PLAY</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>User search #3</td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_3/utt_4/init.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_3/utt_4/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_3/utt_4/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_3/utt_4/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_3/utt_4/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_3/utt_4/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_3/utt_4/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_3/utt_4/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_3/utt_4/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_3/utt_4/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_3/utt_4/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_3/utt_4/iter_2/pca_6/sel.wav')">PLAY</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>User search #4</td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_4/utt_4/init.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_4/utt_4/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_4/utt_4/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_4/utt_4/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_4/utt_4/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_4/utt_4/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_4/utt_4/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_4/utt_4/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_4/utt_4/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_4/utt_4/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_4/utt_4/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_4/utt_4/iter_2/pca_5/sel.wav')">PLAY</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>User search #5</td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_5/utt_4/init.wav')">PLAY</button>
+                        </td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_5/utt_4/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_5/utt_4/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_5/utt_4/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_5/utt_4/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_5/utt_4/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_5/utt_4/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_5/utt_4/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_5/utt_4/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_5/utt_4/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_5/utt_4/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                        <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_0_user_5/utt_4/iter_2/pca_10/sel.wav')">PLAY</button></td>
+                        </tr>
+                       
+                        </table>
+
+
+
+                        <p class="paragraph">Sample: LibriTTS-Hard. Original recording: <button class="audio-button"
+                            onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/src.wav')">PLAY</button>. Resythesized speech: <button
+                            class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/resynthesis.wav')">PLAY</button>. Reconstructed with PCA-reduced speaker embedding: <button
+                            class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/reconstruct.wav')">PLAY</button>.
+                    </p>
+                    <table class="fixed-width-table">
+                        <tr>
+                            <th></th>
+                            <th>Init</th>
+                            <th>Query 1</th>
+                            <th>Query 2</th>
+                            <th>Query 3</th>
+                            <th>Query 4</th>
+                            <th>Query 5</th>
+                            <th>Query 6</th>
+                            <th>Query 7</th>
+                            <th>Query 8</th>
+                            <th>Query 9</th>
+                            <th>Query 10</th>
+                            <th>Final</th>
+                        </tr>
+                        <tr>
+                            <td>Simulated search</td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/init.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/pca_1/sel.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/pca_2/sel.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/pca_3/sel.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/pca_4/sel.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/pca_5/sel.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/pca_6/sel.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/pca_7/sel.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/pca_8/sel.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/pca_9/sel.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/pca_10/sel.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_synth/utt_13/2.wav')">PLAY</button></td>
+                            </tr>
+
+                            <tr>
+                                <td>User search #1</td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_1/utt_13/init.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_1/utt_13/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_1/utt_13/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_1/utt_13/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_1/utt_13/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_1/utt_13/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_1/utt_13/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_1/utt_13/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_1/utt_13/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_1/utt_13/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_1/utt_13/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_1/utt_13/iter_2/pca_4/sel.wav')">PLAY</button></td>
+                            </tr>
+
+                            <tr>
+                                <td>User search #2</td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_2/utt_13/init.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_2/utt_13/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_2/utt_13/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_2/utt_13/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_2/utt_13/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_2/utt_13/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_2/utt_13/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_2/utt_13/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_2/utt_13/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_2/utt_13/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_2/utt_13/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_2/utt_13/iter_2/pca_3/sel.wav')">PLAY</button></td>
+                            </tr>
+
+                            <tr>
+                                <td>User search #3</td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_3/utt_13/init.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_3/utt_13/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_3/utt_13/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_3/utt_13/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_3/utt_13/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_3/utt_13/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_3/utt_13/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_3/utt_13/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_3/utt_13/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_3/utt_13/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_3/utt_13/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_3/utt_13/iter_2/pca_16/sel.wav')">PLAY</button></td>
+                            </tr>
+
+
+                            <tr>
+                                <td>User search #4</td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_4/utt_13/init.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_4/utt_13/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_4/utt_13/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_4/utt_13/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_4/utt_13/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_4/utt_13/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_4/utt_13/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_4/utt_13/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_4/utt_13/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_4/utt_13/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_4/utt_13/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_4/utt_13/iter_2/pca_9/sel.wav')">PLAY</button></td>
+                            </tr>
+
+                            <tr>
+                                <td>User search #5</td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_5/utt_13/init.wav')">PLAY</button>
+                            </td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_5/utt_13/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_5/utt_13/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_5/utt_13/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_5/utt_13/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_5/utt_13/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_5/utt_13/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_5/utt_13/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_5/utt_13/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_5/utt_13/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_5/utt_13/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                            <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_0_user_5/utt_13/iter_2/pca_6/sel.wav')">PLAY</button></td>
+                            </tr>
+                           
+                            </table>
+
+                            <p class="paragraph">Sample: VCTK-Easy. Original recording: <button class="audio-button"
+                                onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/src.wav')">PLAY</button>. Resythesized speech: <button
+                                class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/resynthesis.wav')">PLAY</button>. Reconstructed with PCA-reduced speaker embedding: <button
+                                class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/reconstruct.wav')">PLAY</button>.
+                        </p>
+                        <table class="fixed-width-table">
+                            <tr>
+                                <th></th>
+                                <th>Init</th>
+                                <th>Query 1</th>
+                                <th>Query 2</th>
+                                <th>Query 3</th>
+                                <th>Query 4</th>
+                                <th>Query 5</th>
+                                <th>Query 6</th>
+                                <th>Query 7</th>
+                                <th>Query 8</th>
+                                <th>Query 9</th>
+                                <th>Query 10</th>
+                                <th>Final</th>
+                            </tr>
+                            <tr>
+                                <td>Simulated search</td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/init.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/pca_1/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/pca_2/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/pca_3/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/pca_4/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/pca_5/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/pca_6/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/pca_7/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/pca_8/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/pca_9/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/pca_10/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_synth/utt_5/2.wav')">PLAY</button></td>
+                                </tr>
+    
+                                <tr>
+                                    <td>User search #1</td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_1/utt_5/init.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_1/utt_5/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_1/utt_5/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_1/utt_5/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_1/utt_5/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_1/utt_5/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_1/utt_5/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_1/utt_5/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_1/utt_5/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_1/utt_5/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_1/utt_5/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_1/utt_5/iter_2/pca_2/sel.wav')">PLAY</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>User search #2</td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_2/utt_5/init.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_2/utt_5/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_2/utt_5/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_2/utt_5/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_2/utt_5/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_2/utt_5/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_2/utt_5/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_2/utt_5/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_2/utt_5/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_2/utt_5/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_2/utt_5/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_2/utt_5/iter_1/pca_13/sel.wav')">PLAY</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>User search #3</td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_3/utt_5/init.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_3/utt_5/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_3/utt_5/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_3/utt_5/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_3/utt_5/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_3/utt_5/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_3/utt_5/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_3/utt_5/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_3/utt_5/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_3/utt_5/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_3/utt_5/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_3/utt_5/iter_1/pca_16/sel.wav')">PLAY</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>User search #4</td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_4/utt_5/init.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_4/utt_5/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_4/utt_5/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_4/utt_5/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_4/utt_5/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_4/utt_5/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_4/utt_5/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_4/utt_5/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_4/utt_5/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_4/utt_5/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_4/utt_5/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_4/utt_5/iter_1/pca_16/sel.wav')">PLAY</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>User search #1</td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_5/utt_5/init.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_5/utt_5/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_5/utt_5/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_5/utt_5/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_5/utt_5/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_5/utt_5/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_5/utt_5/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_5/utt_5/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_5/utt_5/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_5/utt_5/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_5/utt_5/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_1_vctk_1_user_5/utt_5/iter_2/pca_3/sel.wav')">PLAY</button></td>
+                                </tr>
+    
+                                </table>
+
+
+                            <p class="paragraph">Sample: VCTK-Hard. Original recording: <button class="audio-button"
+                                onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/src.wav')">PLAY</button>. Resythesized speech: <button
+                                class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/resynthesis.wav')">PLAY</button>. Reconstructed with PCA-reduced speaker embedding: <button
+                                class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/reconstruct.wav')">PLAY</button>.
+                        </p>
+                        <table class="fixed-width-table">
+                            <tr>
+                                <th></th>
+                                <th>Init</th>
+                                <th>Query 1</th>
+                                <th>Query 2</th>
+                                <th>Query 3</th>
+                                <th>Query 4</th>
+                                <th>Query 5</th>
+                                <th>Query 6</th>
+                                <th>Query 7</th>
+                                <th>Query 8</th>
+                                <th>Query 9</th>
+                                <th>Query 10</th>
+                                <th>Final</th>
+                            </tr>
+                            <tr>
+                                <td>Simulated search</td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/init.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/pca_1/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/pca_2/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/pca_3/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/pca_4/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/pca_5/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/pca_6/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/pca_7/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/pca_8/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/pca_9/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/pca_10/sel.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_synth/utt_39/2.wav')">PLAY</button></td>
+                                </tr>
+    
+                                <tr>
+                                    <td>User search #1</td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_1/utt_5/init.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_1/utt_39/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_1/utt_39/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_1/utt_39/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_1/utt_39/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_1/utt_39/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_1/utt_39/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_1/utt_39/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_1/utt_39/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_1/utt_39/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_1/utt_39/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_1/utt_39/iter_2/pca_16/sel.wav')">PLAY</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>User search #2</td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_2/utt_39/init.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_2/utt_39/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_2/utt_39/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_2/utt_39/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_2/utt_39/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_2/utt_39/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_2/utt_39/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_2/utt_39/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_2/utt_39/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_2/utt_39/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_2/utt_39/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_2/utt_39/iter_2/pca_16/sel.wav')">PLAY</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>User search #3</td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_3/utt_39/init.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_3/utt_39/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_3/utt_39/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_3/utt_39/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_3/utt_39/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_3/utt_39/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_3/utt_39/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_3/utt_39/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_3/utt_39/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_3/utt_39/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_3/utt_39/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_3/utt_39/iter_2/pca_16/sel.wav')">PLAY</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>User search #4</td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_4/utt_39/init.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_4/utt_39/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_4/utt_39/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_4/utt_39/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_4/utt_39/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_4/utt_39/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_4/utt_39/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_4/utt_39/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_4/utt_39/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_4/utt_39/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_4/utt_39/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_4/utt_39/iter_2/pca_16/sel.wav')">PLAY</button></td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>User search #5</td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_5/utt_39/init.wav')">PLAY</button>
+                                </td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_5/utt_39/iter_1/pca_1/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_5/utt_39/iter_1/pca_2/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_5/utt_39/iter_1/pca_3/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_5/utt_39/iter_1/pca_4/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_5/utt_39/iter_1/pca_5/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_5/utt_39/iter_1/pca_6/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_5/utt_39/iter_1/pca_7/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_5/utt_39/iter_1/pca_8/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_5/utt_39/iter_1/pca_9/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_5/utt_39/iter_1/pca_10/sel.wav')">PLAY</button></td>
+                                <td><button class="audio-button" onclick="playAudio('user_study/search_for_se_rpca_200000_step_16_gender_2_vctk_1_user_5/utt_39/iter_2/pca_15/sel.wav')">PLAY</button></td>
+                                </tr>
+    
+                                </table>
+
+
+
+                    
+                        </div>
+                        </div>
+
+
+        <div class="section">
+            <div class="title" onclick="toggleSection(event)">
+                <span class="triangle">▶</span>
+                <span>Voice editing within the speaker embedding space</span>
+            </div>
+            <div class="content">
+                <p class="paragraph"> These audio samples demonstrate the audible changes produced by shifting speaker embeddings along the five voice attribute directions.
+                </p>
+                <table>
+                    <tr>
+                        <th rowspan="2">Original recording</th>
+                        <th rowspan="2">Resynthesized speech</th>
+                        <th colspan="2">v<sub>1</sub><br>low_pitch - high_pitch</th>
+                        <th colspan="2">v<sub>2</sub><br>flat_pitch - varied_pitch</th>
+                        <th colspan="2">v<sub>3</sub><br>relaxed - strained</th>
+                        <th colspan="2">v<sub>4</sub><br>muffled - bright</th>
+                        <th colspan="2">v<sub>5</sub><br>less_nasal - more_nasal</th>
+                    </tr>
+                    <tr>
+                        <th>z-4.0&sigma;<sub>1</sub>v<sub>1</sub></th>
+                        <th>z+4.0&sigma;<sub>1</sub>v<sub>1</sub></th>
+                        <th>z-4.0&sigma;<sub>2</sub>v<sub>2</sub></th>
+                        <th>z+4.0&sigma;<sub>2</sub>v<sub>2</sub></th>
+                        <th>z-4.0&sigma;<sub>3</sub>v<sub>3</sub></th>
+                        <th>z+4.0&sigma;<sub>3</sub>v<sub>3</sub></th>
+                        <th>z-4.0&sigma;<sub>4</sub>v<sub>4</sub></th>
+                        <th>z+4.0&sigma;<sub>4</sub>v<sub>4</sub></th>
+                        <th>z-4.0&sigma;<sub>5</sub>v<sub>5</sub></th>
+                        <th>z+4.0&sigma;<sub>5</sub>v<sub>5</sub></th>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/237_134500_000009_000002.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/237_134500_000009_000002_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/237_134500_000009_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/237_134500_000009_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/237_134500_000009_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/237_134500_000009_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/237_134500_000009_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/237_134500_000009_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/237_134500_000009_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/237_134500_000009_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/237_134500_000009_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/237_134500_000009_000002_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/2300_131720_000040_000004.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/2300_131720_000040_000004_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/2300_131720_000040_000004_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/2300_131720_000040_000004_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/2300_131720_000040_000004_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/2300_131720_000040_000004_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/2300_131720_000040_000004_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/2300_131720_000040_000004_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/2300_131720_000040_000004_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/2300_131720_000040_000004_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/2300_131720_000040_000004_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/2300_131720_000040_000004_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/1580_141083_000056_000005.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/1580_141083_000056_000005_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/1580_141083_000056_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/1580_141083_000056_000005_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/1580_141083_000056_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/1580_141083_000056_000005_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/1580_141083_000056_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/1580_141083_000056_000005_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/1580_141083_000056_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/1580_141083_000056_000005_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/1580_141083_000056_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/1580_141083_000056_000005_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/4077_13754_000010_000002.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/4077_13754_000010_000002_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/4077_13754_000010_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/4077_13754_000010_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/4077_13754_000010_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/4077_13754_000010_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/4077_13754_000010_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/4077_13754_000010_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/4077_13754_000010_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/4077_13754_000010_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/4077_13754_000010_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/4077_13754_000010_000002_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/1221_135766_000026_000005.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/1221_135766_000026_000005_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/1221_135766_000026_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/1221_135766_000026_000005_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/1221_135766_000026_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/1221_135766_000026_000005_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/1221_135766_000026_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/1221_135766_000026_000005_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/1221_135766_000026_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/1221_135766_000026_000005_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/1221_135766_000026_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/1221_135766_000026_000005_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+                
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/5105_28233_000019_000004.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/5105_28233_000019_000004_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/5105_28233_000019_000004_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/5105_28233_000019_000004_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/5105_28233_000019_000004_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/5105_28233_000019_000004_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/5105_28233_000019_000004_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/5105_28233_000019_000004_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/5105_28233_000019_000004_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/5105_28233_000019_000004_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/5105_28233_000019_000004_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/5105_28233_000019_000004_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/2961_961_000026_000002.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/2961_961_000026_000002_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/2961_961_000026_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/2961_961_000026_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/2961_961_000026_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/2961_961_000026_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/2961_961_000026_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/2961_961_000026_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/2961_961_000026_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/2961_961_000026_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/2961_961_000026_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/2961_961_000026_000002_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/5639_40744_000027_000002.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/5639_40744_000027_000002_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/5639_40744_000027_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/5639_40744_000027_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/5639_40744_000027_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/5639_40744_000027_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/5639_40744_000027_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/5639_40744_000027_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/5639_40744_000027_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/5639_40744_000027_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/5639_40744_000027_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/5639_40744_000027_000002_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/4446_2271_000009_000001.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/4446_2271_000009_000001_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/4446_2271_000009_000001_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/4446_2271_000009_000001_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/4446_2271_000009_000001_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/4446_2271_000009_000001_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/4446_2271_000009_000001_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/4446_2271_000009_000001_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/4446_2271_000009_000001_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/4446_2271_000009_000001_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/4446_2271_000009_000001_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/4446_2271_000009_000001_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/672_122797_000057_000002.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/672_122797_000057_000002_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/672_122797_000057_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/672_122797_000057_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/672_122797_000057_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/672_122797_000057_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/672_122797_000057_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/672_122797_000057_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/672_122797_000057_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/672_122797_000057_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/672_122797_000057_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/672_122797_000057_000002_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/5142_36586_000011_000002.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/5142_36586_000011_000002_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/5142_36586_000011_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/5142_36586_000011_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/5142_36586_000011_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/5142_36586_000011_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/5142_36586_000011_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/5142_36586_000011_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/5142_36586_000011_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/5142_36586_000011_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/5142_36586_000011_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/5142_36586_000011_000002_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/7176_88083_000023_000002.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/7176_88083_000023_000002_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/7176_88083_000023_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/7176_88083_000023_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/7176_88083_000023_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/7176_88083_000023_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/7176_88083_000023_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/7176_88083_000023_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/7176_88083_000023_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/7176_88083_000023_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/7176_88083_000023_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/7176_88083_000023_000002_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/3331_159605_000008_000010.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/3331_159605_000008_000010_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/3331_159605_000008_000010_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/3331_159605_000008_000010_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/3331_159605_000008_000010_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/3331_159605_000008_000010_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/3331_159605_000008_000010_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/3331_159605_000008_000010_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/3331_159605_000008_000010_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/3331_159605_000008_000010_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/3331_159605_000008_000010_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/3331_159605_000008_000010_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/7729_102255_000035_000003.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/7729_102255_000035_000003_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/7729_102255_000035_000003_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/7729_102255_000035_000003_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/7729_102255_000035_000003_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/7729_102255_000035_000003_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/7729_102255_000035_000003_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/7729_102255_000035_000003_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/7729_102255_000035_000003_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/7729_102255_000035_000003_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/7729_102255_000035_000003_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/7729_102255_000035_000003_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/3997_180294_000053_000000.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/3997_180294_000053_000000_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/3997_180294_000053_000000_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/3997_180294_000053_000000_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/3997_180294_000053_000000_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/3997_180294_000053_000000_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/3997_180294_000053_000000_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/3997_180294_000053_000000_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/3997_180294_000053_000000_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/3997_180294_000053_000000_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/3997_180294_000053_000000_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/3997_180294_000053_000000_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/8224_274384_000017_000002.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/8224_274384_000017_000002_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/8224_274384_000017_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/8224_274384_000017_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/8224_274384_000017_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/8224_274384_000017_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/8224_274384_000017_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/8224_274384_000017_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/8224_274384_000017_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/8224_274384_000017_000002_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/8224_274384_000017_000002_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/8224_274384_000017_000002_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/5484_24318_000076_000005.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/5484_24318_000076_000005_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/5484_24318_000076_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/5484_24318_000076_000005_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/5484_24318_000076_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/5484_24318_000076_000005_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/5484_24318_000076_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/5484_24318_000076_000005_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/5484_24318_000076_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/5484_24318_000076_000005_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/5484_24318_000076_000005_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/5484_24318_000076_000005_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/6432_63723_000032_000001.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/6432_63723_000032_000001_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/6432_63723_000032_000001_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/6432_63723_000032_000001_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/6432_63723_000032_000001_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/6432_63723_000032_000001_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/6432_63723_000032_000001_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/6432_63723_000032_000001_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/6432_63723_000032_000001_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/6432_63723_000032_000001_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/6432_63723_000032_000001_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/6432_63723_000032_000001_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/6128_63241_000002_000012.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/6128_63241_000002_000012_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/6128_63241_000002_000012_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/6128_63241_000002_000012_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/6128_63241_000002_000012_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/6128_63241_000002_000012_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/6128_63241_000002_000012_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/6128_63241_000002_000012_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/6128_63241_000002_000012_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/6128_63241_000002_000012_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/6128_63241_000002_000012_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/6128_63241_000002_000012_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/original_recording/7018_75789_000003_000000.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/7018_75789_000003_000000_ori.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/7018_75789_000003_000000_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch/7018_75789_000003_000000_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/7018_75789_000003_000000_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/pitch2/7018_75789_000003_000000_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/7018_75789_000003_000000_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/tension/7018_75789_000003_000000_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/7018_75789_000003_000000_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/brightness/7018_75789_000003_000000_inc.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/7018_75789_000003_000000_dec.wav')">PLAY</button>
+                        </td>
+                        <td>
+                            <button class="audio-button"
+                                onclick="playAudio('listening_test/nasal/7018_75789_000003_000000_inc.wav')">PLAY</button>
+                        </td>
+                    </tr>
+
+
+                    
+
+
+                </table>
+            </div>
+            </div>
+</body>
+
+</html>
